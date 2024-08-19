@@ -1,11 +1,17 @@
 import Api from "../api/api.js";
 import Header from "../templates/headerHomepage.js";
+import PhotographersList from "../templates/photographersList.js";
 
-const buildPage = async () => {
+const buildPage = async (photographers) => {
   const app = document.getElementById("app");
 
   app.innerHTML = `
   ${Header.render()}
+  <main class="main">
+    ${photographers
+      .map((photographer) => PhotographersList.render(photographer))
+      .join("")}
+  <main>
   `;
 };
 

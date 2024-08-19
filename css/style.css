@@ -1,30 +1,99 @@
-@import url("photographer.css");
+@import url("./variables.css");
+@import url("./reset.css");
 
 body {
     font-family: "DM Sans", sans-serif;
-    margin: 0;
+    font-size: 16px;
 }
 
-
-header {
+.header {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
+    padding-top: var(--spacing-6xl);
+    max-width: var(--max-breakpoint);
+    margin: 0 auto;
+    margin-bottom: var(--margin-2xl);
+}
+
+.header__link {
+    text-decoration: none;
+}
+
+.header__link__logo {
+    height: var(--height-logo);
+}
+
+.header__title {
+    font-weight: 400;
+    font-size: var(--title-font-size);
+    line-height: var(--title-line-height);
+    color: var(--primary-color);
+}
+
+.main {
+    max-width: var(--max-breakpoint);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    gap: var(--spacing-10xl);
+    justify-items: center;
+    justify-content: space-between;
+}
+
+.main__card {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    height: 90px;
+    width: 200px;
 }
 
-h1 {
-    color: #901C1C;
-    margin-right: 100px;
+.main__card__head-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.logo {
-    height: 50px;
-    margin-left: 100px;
+.main__card__head-card__profil-picture {
+    object-fit: cover;
+    border-radius: 100%;
 }
 
-.photographer_section {
+.main__card__head-card__title {
+    font-weight: 400;
+    font-size: var(--title-font-size);
+    line-height: var(--title-line-height);
+    color: var(--secondary-color);
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+.main__card__body-card {
+    text-align: center;
+}
+
+.main__card__body-card__location {
+    font-weight: 400;
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-xs);
+    color: var(--primary-color);
+}
+
+.main__card__body-card__tagline {
+    font-weight: 400;
+    font-size: var(--font-size-2xs);
+    line-height: var(--line-height-2xs);
+}
+
+.main__card__body-card__price {
+    font-weight: 400;
+    font-size: var(--font-size-3xs);
+    line-height: var(--line-height-3xs);
+    color: var(--price-color);
+}
+
+/* .photographer_section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
@@ -47,4 +116,4 @@ h1 {
 .photographer_section article img {
     height: 200px;
     width: 200px;
-}
+} */
