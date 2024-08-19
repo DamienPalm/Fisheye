@@ -1,0 +1,48 @@
+:root {
+    --primary-color: #901C1C;
+    --secondary-color: #D3573C;
+    --tertiary-color: #DB8876;
+    --background-color: #FAFAFA;
+    --price-color: #757575;
+    --white-color: #ffffff;
+
+    --font-family: "DM Sans", sans-serif;
+
+    --title-font-size: 36px;
+    --title-font-size-xl: 64px;
+    --font-size-3xs: 8px;
+    --font-size-2xs: 10px;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+
+    --title-line-height: 46px;
+    --title-line-height-xl: 84px;
+    --line-height-3xs: 12px;
+    --line-height-2xs: 14px;
+    --line-height-xs: 16px;
+    --line-height-sm: 24px;
+    --line-height-md: 26px;
+    --line-height-lg: 32px;
+
+    --margin-2xl: 100px;
+
+    --spacing-md: 8px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-2xl: 32px;
+    --spacing-3xl: 40px;
+    --spacing-4xl: 48px;
+    --spacing-5xl: 56px;
+    --spacing-6xl: 64px;
+    --spacing-7xl: 72px;
+    --spacing-8xl: 80px;
+    --spacing-9xl: 88px;
+    --spacing-10xl: 96px;
+
+    --max-breakpoint: 1240px;
+
+    --height-logo: 50px;
+}
