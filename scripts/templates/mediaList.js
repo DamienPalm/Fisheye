@@ -29,7 +29,48 @@ const render = (mediaData) => {
   `;
 };
 
-const event = () => {};
+const event = () => {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    const like = card.querySelector(".like-button");
+    const totalLikes = card.querySelector(".total-likes");
+    let likes = parseInt(totalLikes.textContent);
+
+    like.addEventListener("click", () => {
+      like.classList.toggle("liked");
+
+      if (like.classList.contains("liked")) {
+        likes++;
+      } else {
+        likes--;
+      }
+
+      totalLikes.textContent = likes + " ";
+      totalLikes.appendChild(like);
+
+      updateTotaleLikeDisplay();
+    });
+  });
+};
+
+function calculateTotalLikes() {
+  const allTotalLikes = document.querySelectorAll(".total-likes");
+  let totalLikes = 0;
+  allTotalLikes.forEach((element) => {
+    totalLikes += parseInt(element.textContent);
+  });
+  return totalLikes;
+}
+
+function updateTotaleLikeDisplay() {
+  const totalLikesElement = document.querySelector(
+    ".main__likes-section__like-counter"
+  );
+  if (totalLikesElement) {
+    totalLikesElement.textContent = calculateTotalLikes();
+  }
+}
 
 export default {
   render,

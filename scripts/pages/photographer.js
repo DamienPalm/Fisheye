@@ -5,6 +5,11 @@ import PhotographerProfile from "../templates/photographerProfile.js";
 import FilterMedia from "../templates/filterMedia.js";
 import MediaList from "../templates/mediaList.js";
 import LikePhotographer from "../templates/likePhotographer.js";
+import {
+  sortByDate,
+  sortByPopularity,
+  sortByTitle,
+} from "../utils/sortFunction.js";
 
 const getPhotographerId = () => {
   const id = new URLSearchParams(window.location.search).get("id");
@@ -28,7 +33,7 @@ const fetchData = async () => {
   return data;
 };
 
-const getPhotographerById = (photographers, id) => {
+const findPhotographer = (photographers, id) => {
   const photographer = photographers.find(
     (photographer) => photographer.id === parseInt(id)
   );
@@ -38,32 +43,10 @@ const getPhotographerById = (photographers, id) => {
   return photographer;
 };
 
-const getMediaForPhotographer = async (photographerId) => {
-  try {
-    const data = await fetchData();
-    const photographer = data.photographers.find(
-      (photographer) => photographer.id === parseInt(photographerId)
-    );
-    if (!photographer) {
-      throw new Error(`Aucun photographe trouvé avec l'ID : ${photographerId}`);
-    }
-    const media = data.media
-      .filter((media) => media.photographerId === parseInt(photographerId))
-      .map((media) => {
-        return { ...media, photographerName: photographer.name };
-      });
-    console.log(
-      `Médias trouvés pour le photographe ${photographer.name}:`,
-      media
-    );
-    return media;
-  } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des médias du photographe:",
-      error
-    );
-    throw error;
-  }
+const getMediaForPhotographer = (medias, photographerId, photographerName) => {
+  return medias
+    .filter((media) => media.photographerId === parseInt(photographerId))
+    .map((media) => ({ ...media, photographerName }));
 };
 
 const buildPage = async (photographer, media) => {
@@ -77,8 +60,7 @@ const buildPage = async (photographer, media) => {
         <section class="main__media-section">
         ${FilterMedia.render()}
         <section id="media-list-container" class="main__media-section__media-list">
-        ${media.map(MediaList.render).join("")}
-        ${LikePhotographer.render(photographer, media)}
+        ${renderMediaList(media, photographer)}
         </section>
         </section>
     <main>
@@ -86,19 +68,50 @@ const buildPage = async (photographer, media) => {
 
   PhotographerProfile.event();
   ContactForm.event();
-  FilterMedia.event();
+  setupFilterMediaEvent(photographer, media);
+  MediaList.event(photographer, media);
+};
+
+const renderMediaList = (media, photographer) => {
+  return `
+      ${media.map(MediaList.render).join("")}
+      ${LikePhotographer.render(photographer, media)}
+    `;
+};
+
+const updateMediaList = (media, photographer) => {
+  const mediaListContainer = document.getElementById("media-list-container");
+  if (mediaListContainer) {
+    mediaListContainer.innerHTML = renderMediaList(media, photographer);
+    MediaList.event(photographer, media);
+  }
+};
+
+const setupFilterMediaEvent = (photographer, initialMedia) => {
+  const sortFunctions = {
+    popularity: sortByPopularity,
+    date: sortByDate,
+    title: sortByTitle,
+  };
+
+  FilterMedia.event((sortType) => {
+    const sortFunction = sortFunctions[sortType] || ((media) => media);
+    const sortedMedia = sortFunction(initialMedia);
+    updateMediaList(sortedMedia, photographer);
+  });
 };
 
 const initializePhotographerPage = async () => {
   try {
     const photographerId = getPhotographerId();
-    const data = await fetchData();
-    const photographer = getPhotographerById(
-      data.photographers,
-      photographerId
+    const { photographers, media } = await fetchData();
+    const photographer = findPhotographer(photographers, photographerId);
+    const photographerMedia = await getMediaForPhotographer(
+      media,
+      photographerId,
+      photographer.name
     );
-    const media = await getMediaForPhotographer(photographerId);
-    buildPage(photographer, media);
+    await buildPage(photographer, photographerMedia);
   } catch (error) {
     console.error(
       "Erreur lors de l'initialisation de la page photographer : ",
