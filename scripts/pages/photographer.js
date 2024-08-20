@@ -1,4 +1,5 @@
 import Api from "../api/api.js";
+import ContactForm from "../templates/contactForm.js";
 import Header from "../templates/headerPhotographer.js";
 import PhotographerProfile from "../templates/photographerProfile.js";
 import FilterMedia from "../templates/filterMedia.js";
@@ -69,6 +70,7 @@ const buildPage = async (photographer, media) => {
   const app = document.getElementById("app");
 
   app.innerHTML = `
+    ${ContactForm.render(photographer)}
     ${Header.render()}
     <main class="main">
     ${PhotographerProfile.render(photographer)}
@@ -81,6 +83,10 @@ const buildPage = async (photographer, media) => {
         </section>
     <main>
   `;
+
+  PhotographerProfile.event();
+  ContactForm.event();
+  FilterMedia.event();
 };
 
 const initializePhotographerPage = async () => {

@@ -244,6 +244,97 @@ body {
     line-height: var(--line-height-lg);
 }
 
-#contact_modal {
+.modal-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    z-index: 2;
     display: none;
+}
+
+.modal-background.active {
+    display: block;
+}
+
+.modal-background__modal {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-background__modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+    margin-top: -16px;
+}
+
+.modal-background__modal__header__closeButton {
+    cursor: pointer;
+    padding-top: var(--spacing-lg);
+}
+
+.modal-background__modal__header__title {
+    font-size: var(--title-font-size-xl);
+    font-weight: 400;
+    line-height: var(--title-line-height-xl);
+}
+
+.modal-background__modal__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.modal-background__modal__form__formData {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-background__modal__form__formData__label {
+    font-size: var(--title-font-size);
+}
+
+.modal-background__modal__form__formData__input {
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-family: var(--font-family);
+}
+
+.modal-background__modal__form__formData__textarea {
+    height: 177px;
+    resize: none;
+    border: none;
+    border-radius: 5px;
+    font-family: var(--font-family);
+}
+
+.modal-background__modal__form__button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    padding: var(--spacing-xl) var(--spacing-4xl);
+    margin-top: var(--spacing-md);
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
 }

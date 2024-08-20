@@ -1,3 +1,5 @@
+import { displayModal } from "../utils/contactForm.js";
+
 const render = (photographer) => {
   return `
     <section class="main__photographer-profile">
@@ -12,7 +14,7 @@ const render = (photographer) => {
               photographer.tagline
             }</p>
         </article>
-        <button class="main__photographer-profile__contact-photographer-button">Contactez-moi</button>
+        <button class="main__photographer-profile__contact-photographer-button" id="modal-button">Contactez-moi</button>
         <img class="main__photographer-profile__profile-picture" src="${
           photographer.portrait_thumbnail
             ? photographer.portrait_thumbnail
@@ -22,7 +24,10 @@ const render = (photographer) => {
     `;
 };
 
-const event = () => {};
+const event = () => {
+  const openModalButton = document.getElementById("modal-button");
+  openModalButton.addEventListener("click", displayModal);
+};
 
 export default {
   render,
