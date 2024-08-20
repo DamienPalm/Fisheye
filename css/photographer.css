@@ -1,76 +1,249 @@
-#contact_modal {
-    display: none;
+@import url("./variables.css");
+@import url("./reset.css");
+
+body {
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
 }
 
-.photograph-header {
-    background-color: #FAFAFA;
-    height: 300px;
-    margin: 0 100px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: var(--spacing-6xl);
+    max-width: var(--max-breakpoint);
+    margin: 0 auto;
+    margin-bottom: var(--margin-2xl);
 }
 
-.contact_button {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    padding: 11px;
+.header__link {
+    text-decoration: none;
+}
+
+.header__link__logo {
+    height: var(--height-logo);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    max-width: var(--max-breakpoint);
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.main__photographer-profile {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.main__photographer-profile__info {
+    display: flex;
+    flex-direction: column;
+    padding-block: var(--spacing-8xl);
+    padding-inline: var(--spacing-7xl);
+}
+
+.main__photographer-profile__info__name {
+    font-weight: 400;
+    font-size: var(--title-font-size-xl);
+    line-height: var(--title-line-height-xl);
+    color: var(--secondary-color);
+}
+
+.main__photographer-profile__info__location {
+    font-weight: 400;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-lg);
+    color: var(--primary-color);
+}
+
+.main__photographer-profile__info__tagline {
+    font-weight: 400;
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-sm);
+}
+
+.main__photographer-profile__contact-photographer-button {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+    font-weight: 700;
+    color: var(--white-color);
+    padding: var(--spacing-xs);
     width: 170px;
     height: 70px;
     border: none;
-    background-color: #901C1C;
+    background-color: var(--primary-color);
     border-radius: 5px;
     cursor: pointer;
 }
 
-.modal {
-    border-radius: 5px;
-    background-color: #DB8876;
-    width: 50%;
+.main__photographer-profile__profile-picture {
+    object-fit: cover;
+    border-radius: 100%;
+    padding-block: var(--spacing-8xl);
+    padding-inline: var(--spacing-7xl);
+}
+
+.main__media-section {
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.filter-section {
+    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 35px;
-    margin: auto;
+    gap: var(--spacing-xl);
 }
 
-.modal header {
-    justify-content: space-between;
-    width: 100%;
+.dropdown {
+    position: relative;
 }
 
-.modal header img {
-    cursor: pointer;
-}
-
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
-}
-
-form {
+.select {
+    background-color: var(--primary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--white-color);
     display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-form label {
-    color: #312E2E;
-    font-size: 36px;
-}
-
-form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
-}
-
-form input {
-    width: 100%;
-    height: 68px;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-xl);
     border: none;
     border-radius: 5px;
+    padding: var(--spacing-xl);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.select:hover {
+    background-color: var(--tertiary-color);
+}
+
+.chevron-rotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    background-color: var(--primary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--white-color);
+    border-radius: 5px;
+    position: absolute;
+    min-width: 100%;
+    display: none;
+    opacity: 0;
+}
+
+.open-menu {
+    display: block;
+    opacity: 1;
+    z-index: 1;
+}
+
+.option {
+    padding: var(--spacing-xl);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.option:hover {
+    background-color: var(--tertiary-color);
+}
+
+.main__media-section__media-list {
+    display: grid;
+    grid-template-columns: repeat(3, 350px);
+    column-gap: var(--spacing-10xl);
+    row-gap: var(--spacing-2xl);
+}
+
+.main__media-section__media-list__card__head-card__media {
+    height: 300px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.main__media-section__media-list__card__body-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main__media-section__media-list__card__body-card__title {
+    font-weight: 400;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-lg);
+    color: var(--primary-color);
+}
+
+.main__media-section__media-list__card__body-card__likes {
+    font-weight: 500;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-lg);
+    color: var(--primary-color);
+    text-wrap: nowrap;
+}
+
+.main__likes-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 376px;
+    background-color: var(--tertiary-color);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform: translateX(-36px);
+    padding-block: var(--spacing-xl);
+    padding-inline: var(--spacing-3xl);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.main__like-section__div {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.main__likes-section__like-counter {
+    font-weight: 500;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-lg);
+}
+
+.main__likes-section__heart {
+    font-size: var(--font-size-xl);
+}
+
+.main__likes-section__like-counter__like {
+    padding: var(--spacing-md);
+}
+
+.like-button {
+    cursor: pointer;
+    color: var(--tertiary-color);
+}
+
+.liked {
+    color: var(--primary-color);
+}
+
+.main__likes-section__price {
+    font-weight: 500;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-lg);
+}
+
+#contact_modal {
+    display: none;
 }
