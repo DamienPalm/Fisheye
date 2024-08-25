@@ -35,5 +35,10 @@ export const attachLikeEvents = () => {
   document.querySelectorAll(".card").forEach((card) => {
     const likeButton = card.querySelector(".like-button");
     likeButton.addEventListener("click", () => handleLikeClick(likeButton));
+    likeButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        handleLikeClick(likeButton);
+      }
+    });
   });
 };

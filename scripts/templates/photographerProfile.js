@@ -2,7 +2,7 @@ import { displayModal } from "../utils/contactForm.js";
 
 const render = (photographer) => {
   return `
-    <section class="main__photographer-profile">
+    <section class="main__photographer-profile" aria-label="Photographer profile">
         <article class="main__photographer-profile__info">
             <h1 class="main__photographer-profile__info__name">${
               photographer.name
@@ -27,6 +27,12 @@ const render = (photographer) => {
 const event = () => {
   const openModalButton = document.getElementById("modal-button");
   openModalButton.addEventListener("click", displayModal);
+  openModalButton.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      displayModal();
+    }
+  });
 };
 
 export default {
