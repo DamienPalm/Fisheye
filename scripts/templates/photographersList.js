@@ -1,6 +1,6 @@
 const render = (photographer) => {
   return `
-    <article class="main__card">
+    <article class="main__card" tabindex="0" role="article" aria-labelledby="photographer-name">
         <a class="main__card__head-card" href="./photographer.html?id=${
           photographer.id
         }">
@@ -19,13 +19,44 @@ const render = (photographer) => {
             <p class="main__card__body-card__tagline">${
               photographer.tagline
             }</p>
-            <p class="main__card__body-card__price">${photographer.price}</p>
+            <p class="main__card__body-card__price">${
+              photographer.price
+            }€/jour</p>
         </div>
     </article>
     `;
 };
 
-const event = () => {};
+const event = () => {
+  const cards = document.querySelectorAll(".main__card");
+
+  cards.forEach((card, index) => {
+    card.addEventListener("keydown", (event) => {
+      let newIndex;
+      switch (event.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          event.preventDefault();
+          newIndex = (index + 1) % cards.length;
+          cards[newIndex].focus();
+          break;
+
+        case "ArrowLeft":
+        case "ArrowUp":
+          event.preventDefault();
+          newIndex = (index - 1 + cards.length) % cards.length;
+          cards[newIndex].focus();
+          break;
+
+        case "Enter":
+        case " ":
+          event.preventDefault();
+          card.querySelector("a").click();
+          break;
+      }
+    });
+  });
+};
 
 export default {
   render,

@@ -25,6 +25,8 @@ const buildPage = async (photographers) => {
     ${photographers.map(PhotographersList.render).join("")}
   <main>
   `;
+
+  PhotographersList.event();
 };
 
 const initializeApp = async () => {
