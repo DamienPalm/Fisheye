@@ -24,6 +24,20 @@ const event = (sortBy) => {
   const options = document.querySelectorAll(".option");
   const selected = document.querySelector(".selected");
 
+  let currentFocus = -1;
+
+  const closeMenu = () => {
+    select.classList.remove("selected-clicked");
+    chevron.classList.remove("chevron-rotate");
+    menu.classList.remove("open-menu");
+  };
+
+  const openMenu = () => {
+    select.classList.add("selected-clicked");
+    chevron.classList.add("chevron-rotate");
+    menu.classList.add("open-menu");
+  };
+
   select.addEventListener("click", () => {
     select.classList.toggle("selected-clicked");
     chevron.classList.toggle("chevron-rotate");
@@ -33,33 +47,11 @@ const event = (sortBy) => {
   options.forEach((option) => {
     option.addEventListener("click", () => {
       selected.innerText = option.innerText;
-      options.forEach((opt) => {
-        opt.classList.remove("active");
-      });
+      options.forEach((opt) => opt.classList.remove("active"));
       option.classList.add("active");
-      select.classList.remove("selected-clicked");
-      chevron.classList.remove("chevron-rotate");
-      menu.classList.remove("open-menu");
-      let sortType;
+      closeMenu();
 
-      switch (option.innerText) {
-        case "Popularité":
-          sortType = "popularity";
-          break;
-
-        case "Date":
-          sortType = "date";
-          break;
-
-        case "Titre":
-          sortType = "title";
-          break;
-
-        default:
-          console.warn("L'option de tri non reconnue : ", option.innerText);
-          return;
-      }
-
+      const sortType = option.dataset.sort;
       console.log("Filtre sélectionné :", sortType);
 
       if (typeof sortBy === "function") {
@@ -68,6 +60,49 @@ const event = (sortBy) => {
 
       updateUrlWithSort(sortType);
     });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!menu.classList.contains("open-menu")) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openMenu();
+      }
+      return;
+    }
+
+    if (e.key === "Escape") {
+      closeMenu();
+      return;
+    }
+
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+
+      currentFocus += e.key === "ArrowDown" ? 1 : -1;
+      if (currentFocus >= options.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = options.length - 1;
+
+      options.forEach((opt, index) => {
+        if (index === currentFocus) {
+          opt.classList.add("focused");
+          opt.focus();
+        } else {
+          opt.classList.remove("focused");
+        }
+      });
+    }
+
+    if (e.key === "Enter" && currentFocus !== -1) {
+      options[currentFocus].click();
+    }
+  });
+
+  // Fermer le menu si on clique en dehors
+  document.addEventListener("click", (e) => {
+    if (!select.contains(e.target)) {
+      closeMenu();
+    }
   });
 };
 

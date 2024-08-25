@@ -5,6 +5,7 @@ import PhotographerProfile from "../templates/photographerProfile.js";
 import FilterMedia from "../templates/filterMedia.js";
 import MediaList from "../templates/mediaList.js";
 import LikePhotographer from "../templates/likePhotographer.js";
+import Lightbox from "../templates/lightbox.js";
 import {
   sortByDate,
   sortByPopularity,
@@ -70,6 +71,7 @@ const buildPage = async (photographer, media) => {
   ContactForm.event();
   setupFilterMediaEvent(photographer, media);
   MediaList.event(photographer, media);
+  Lightbox.event(media);
 };
 
 const renderMediaList = (media, photographer) => {
@@ -84,6 +86,7 @@ const updateMediaList = (media, photographer) => {
   if (mediaListContainer) {
     mediaListContainer.innerHTML = renderMediaList(media, photographer);
     MediaList.event(photographer, media);
+    Lightbox.event(media);
   }
 };
 
@@ -101,9 +104,9 @@ const setupFilterMediaEvent = (photographer, initialMedia) => {
   });
 };
 
-const initializePhotographerPage = async () => {
+const initializePhotographerPage = async (id) => {
   try {
-    const photographerId = getPhotographerId();
+    const photographerId = getPhotographerId(id);
     const { photographers, media } = await fetchData();
     const photographer = findPhotographer(photographers, photographerId);
     const photographerMedia = await getMediaForPhotographer(
