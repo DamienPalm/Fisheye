@@ -1,6 +1,8 @@
 const render = (photographer) => {
   return `
-    <article class="main__card" tabindex="0" role="article" aria-labelledby="photographer-name">
+    <article class="main__card" tabindex="0" role="article" aria-labelledby="${
+      photographer.name
+    }">
         <a class="main__card__head-card" href="./photographer.html?id=${
           photographer.id
         }">
