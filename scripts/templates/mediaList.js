@@ -85,7 +85,6 @@ const event = (photographer, media) => {
           }
           break;
         case "Enter":
-        case " ":
           event.preventDefault;
           attachLikeEvents();
       }
